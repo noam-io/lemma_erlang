@@ -1,0 +1,12 @@
+{application, lemma_erlang,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { lemma_erlang_app, []}},
+  {env, []}
+ ]}.

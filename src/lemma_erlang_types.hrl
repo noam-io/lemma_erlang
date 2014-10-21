@@ -1,0 +1,10 @@
+-type guest() :: binary().
+-type room() :: binary().
+-type topic() :: binary().
+-type topics() :: [topic()].
+-type listener() :: pid().
+-type prop() :: {binary(),term()}.
+-type state() ::[prop()].
+-type message() :: binary() | {binary(),topic(),term()}.
+-type config() :: {guest(),room(),topics(),listener()}.
+-type decoded_message() :: {ok,message,guest(),topic(),term()} | {ok,heartbeat,guest()} | {error,binary()}.
