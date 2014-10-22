@@ -79,7 +79,7 @@ heartbeat(Sock,Guest) ->
     Msg = format_message([<<"heartbeat">>,Guest]),
     gen_tcp:send(Sock, Msg). 
 
--spec message_transformer(guest(),topics(),listener(),atom()) -> ok.
+-spec message_transformer(guest(),topics(),listener(),fsmRef()) -> ok.
 message_transformer(Guest,Topics,Listener,FSMRef) ->
     receive
         {tcp,_,Message} ->
@@ -142,7 +142,7 @@ validate_message({ok,message,Sender,Topic,EventValue},_Guest,Topics) ->
     end.
 
 
--spec register(guest(),topics(),term(),inet:ip_address(),inet:port_number(),listener(),atom(),State) ->
+-spec register(guest(),topics(),term(),inet:ip_address(),inet:port_number(),listener(),fsmRef(),State) ->
     {reply, {ok,[prop()]}, State}.
 register(Guest,Topics,Speaks,IP,Port,Listener,FSMRef,_State) ->
     %% set up the listener and associated process

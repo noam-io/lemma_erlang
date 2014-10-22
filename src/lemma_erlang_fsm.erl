@@ -29,7 +29,7 @@ start_link(Config) ->
         {local, build_fsm_name(Config)}, 
         ?MODULE, Config, []).
 
--spec build_fsm_name(config() | {guest(),room(),topics(),listener(),term()}) -> atom().
+-spec build_fsm_name(config() | {guest(),room(),topics(),listener(),term()}) -> fsmRef().
 build_fsm_name({Guest,Room,Topics,Listener}) ->
     build_fsm_name({Guest,Room,Topics,Listener,undefined});
 

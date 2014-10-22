@@ -1,3 +1,4 @@
+-type fsmRef() :: atom().
 -type guest() :: binary().
 -type room() :: binary().
 -type topic() :: binary().

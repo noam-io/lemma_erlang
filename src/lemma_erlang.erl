@@ -1,4 +1,5 @@
 -module(lemma_erlang).
+-include("lemma_erlang_types.hrl").
 
 -export([test/2,listener/0,connect/4,send/3,disconnect/1]).
 
@@ -7,6 +8,7 @@ ensure_deps_started(App) ->
 	{ok, Deps} = application:get_key(App, applications),
 	true = lists:all(fun ensure_started/1, Deps),
 	ensure_started(App).
+
 ensure_started(App) ->
 	case application:start(App) of
 		ok ->
@@ -18,6 +20,8 @@ ensure_started(App) ->
 			Else
 	end.
 
+
+-spec connect(guest(),room(),topics(),listener()) -> fsmRef().
 connect(Guest,Room,Topics,Listener) when is_binary(Guest), 
 	is_binary(Room),
 	is_list(Topics),
@@ -36,12 +40,16 @@ connect(Guest,Room,Topics,Listener) when is_binary(Guest),
 	_Resp = gen_fsm:sync_send_event(_Pid, <<"broadcast">>,infinity),	
 	lemma_erlang_fsm:build_fsm_name(Config).
 
+-spec send(fsmRef(),topic(),term()) -> ok.
 send(FsmRef,Topic,Message) ->
 	gen_fsm:send_event(FsmRef, {<<"message">>,Topic,Message}).
 
+-spec disconnect(fsmRef()) -> ok.
 disconnect(FsmRef)->
 	supervisor:terminate_child(lemma_erlang_sup, FsmRef),
 	supervisor:delete_child(lemma_erlang_sup, FsmRef). 
+
+
 
 test(Guest,Room) when is_binary(Guest), is_binary(Room)  ->
 	true = ensure_deps_started(lemma_erlang),
