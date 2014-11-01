@@ -4,7 +4,7 @@ The goal of the Erlang lemma is to let your application send and receive message
 ## TL/DR
  - Start the lemma_erlang application as part of your Erlang application.
  - Create a listener to receive messages from the Noam server and handle your business logic.
- - Connect to a server instance and a room with lemma_erlang:connect/4, which returns a reference to the room.
+ - Connect to a server instance and a room with ```lemma_erlang:connect/4```, which returns a reference to the room.
  - Send to the reference using lemma_erlang:send/3 (message can be any term).
  - Messages to the lemma are passed back to the listener as decoded Erlang/EJSON terms.
  - Use lemma_erlang:disconnect/1 to disconnect.
