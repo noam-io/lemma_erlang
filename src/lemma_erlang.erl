@@ -26,6 +26,7 @@ connect(Guest,Room,Topics,Listener) when is_binary(Guest),
 	is_binary(Room),
 	is_list(Topics),
 	is_pid(Listener) ->
+	
 	Config = {Guest,Room,Topics,Listener},
 	ChildSpec = {
 			lemma_erlang_fsm:build_fsm_name(Config),
@@ -37,7 +38,7 @@ connect(Guest,Room,Topics,Listener) when is_binary(Guest),
 			},
 	
 	{ok, _Pid} = supervisor:start_child(lemma_erlang_sup, ChildSpec),
-	_Resp = gen_fsm:sync_send_event(_Pid, <<"broadcast">>,infinity),	
+	_Resp = gen_fsm:send_event(_Pid, <<"broadcast">>),	
 	lemma_erlang_fsm:build_fsm_name(Config).
 
 -spec send(fsmRef(),topic(),term()) -> ok.

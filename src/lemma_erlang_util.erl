@@ -8,7 +8,7 @@
 %% API
 -spec async_start_link(atom(),atom(),[term()],{pid(),term()},state()) -> pid().
 async_start_link(Module,Func,Args,From,State) ->
-	proc_lib:spawn_link(?MODULE, async_func_wrapper, [Module,Func,Args,From,State]).
+	proc_lib:spawn_link(?MODULE, async_func_wrapper, [Module, Func, Args, From, State]).
 
 
 -spec async_func_wrapper(atom(),atom(),[term()],{pid(),term()},state()) -> term().
